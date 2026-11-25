@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملف سري للغاية | المحققة ملك 🔍❤️</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f0c1d;
+            --card-bg: #1a152e;
+            --gold: #f59e0b;
+            --rose: #f43f5e;
+            --rose-light: #fda4af;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', Tahoma, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #1e163b 0%, var(--bg-dark) 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* إخفاء مربعات التحكم الذكية */
+        .toggle-checkbox {
+            display: none;
+        }
+
+        /* شاشة القفل السري */
+        #lockScreen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* عند الضغط على زر الفتح تختفي شاشة القفل ويظهر المحتوى */
+        #openToggle:checked ~ #lockScreen {
+            display: none;
+        }
+
+        #openToggle:checked ~ #mainContent {
+            display: block;
+        }
+
+        .folder-box {
+            background: var(--card-bg);
+            border: 2px dashed var(--gold);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .stamp {
+            display: inline-block;
+            border: 3px solid var(--rose);
+            color: var(--rose);
+            padding: 5px 15px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            transform: rotate(-5deg);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .folder-box h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .folder-box p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .btn-open {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--rose), #e11d48);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(244, 63, 94, 0.4);
+            transition: 0.3s;
+            user-select: none;
+        }
+
+        .btn-open:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(244, 63, 94, 0.6);
+        }
+
+        /* المحتوى الرئيسي */
+        #mainContent {
+            display: none;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 4rem 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header-title h2 {
+            font-family: 'Amiri', serif;
+            font-size: 3.2rem;
+            color: var(--rose-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .header-title span {
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .letter-card {
+            background: rgba(26, 21, 46, 0.9);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            line-height: 2.1;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .letter-card strong {
+            color: var(--gold);
+        }
+
+        .clues-title {
+            text-align: center;
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .clues-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 3rem;
+        }
+
+        .clue-card {
+            background: var(--card-bg);
+            border-right: 4px solid var(--rose);
+            padding: 1.5rem;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .clue-card:hover {
+            transform: translateY(-5px);
+            background: #231c3d;
+        }
+
+        .clue-card h3 {
+            color: var(--rose-light);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .clue-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .verdict-box {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), rgba(245, 158, 11, 0.15));
+            border: 1px solid var(--gold);
+            padding: 2.5rem;
+            border-radius: 20px;
+        }
+
+        .verdict-box h3 {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        #loveMessage {
+            margin-top: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--rose-light);
+            display: none;
+        }
+
+        #surpriseToggle:checked ~ #loveMessage {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <input type="checkbox" id="openToggle" class="toggle-checkbox">
+
+    <!-- شاشة القفل السري -->
+    <div id="lockScreen">
+        <div class="folder-box">
+            <div class="stamp">ملف سري للغاية 🔍</div>
+            <h1>إلى: المحققة ملك</h1>
+            <p>تم رصد قضية استثنائية لا يستطيع حلّها إلا أذكى محققة في العالم...<br>هل أنتِ مستعدة لفتح الملف وكشف الحقيقة؟</p>
+            <label for="openToggle" class="btn-open">🔓 افتحي الملف يا ملك</label>
+        </div>
+    </div>
+
+    <!-- محتوى الرسالة بعد الفتح -->
+    <div id="mainContent">
+        <div class="header-title">
+            <span>📁 رقم القضية: #1 في قلبي</span>
+            <h2>إلى أجمل محققة.. ملك ❤️</h2>
+        </div>
+
+        <div class="letter-card">
+            <p>
+                يا <strong>محققتي الجميلة ملك</strong>،<br>
+                قد تظنين أنكِ تبحثين عن الأدلة والتفاصيل في كل شيء، لكن الحقيقة الوحيدة التي لا تحتاج إلى تحقيق هي أنكِ سرقتِ قلبي بالكامل.<br>
+                منذ اللحظة التي عرفتكِ فيها، وأنا أرى فيكِ <strong>ملكةً</strong> بكل ما تحمله الكلمة من معنى؛ في حضوركِ، في ذكائكِ، وفي طيبة قلبكِ.<br>
+                أحبكِ جداً، وأحب كل تفصيلة صغيرة فيكِ، وأتمنى أن تبقي دائماً أجمل لغزٍ أحب اكتشافه كل يوم.
+            </p>
+        </div>
+
+        <h3 class="clues-title">🔎 3 أدلة قاطعة تثبت لماذا أحبكِ:</h3>
+        <div class="clues-grid">
+            <div class="clue-card">
+                <h3>الدليل الأول: اسمكِ وحضوركِ</h3>
+                <p>اسمكِ "ملك" على مسمّى، تملكين القلب والروح بمجرد ابتسامة أو كلمة منكِ.</p>
+            </div>
+            <div class="clue-card">
+                <h3>الدليل الثاني: ذكاؤكِ وعفويتكِ</h3>
+                <p>طريقتكِ في التحقيق والانتباه لأدق التفاصيل تجعلكِ مختلفة ومميزة عن أي شخص آخر.</p>
+            </div>
+            <div class="clue-card">
+                <h3>الدليل الثالث: راحتي معكِ</h3>
+                <p>الوقت معكِ يمرّ دون أن أشعر، ووجودكِ بجانبي هو أجمل شعور في الدنيا.</p>
+            </div>
+        </div>
+
+        <div class="verdict-box">
+            <h3>⚖️ الحكم النهائي في هذه القضية:</h3>
+            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">بناءً على جميع الأدلة السابقة، صدر الحكم المؤبد بحبكِ إلى الأبد!</p>
+            
+            <input type="checkbox" id="surpriseToggle" class="toggle-checkbox">
+            <label for="surpriseToggle" class="btn-open">اضغطي هنا لإغلاق القضية ❤️</label>
+            <div id="loveMessage">أحبكِ يا ملك.. يا أجمل محققة في حياتي! 🌹✨</div>
+        </div>
+    </div>
+
+</body>
+</html>
